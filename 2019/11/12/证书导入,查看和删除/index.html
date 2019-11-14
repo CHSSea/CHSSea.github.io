@@ -168,6 +168,11 @@
     <a href="/photos/" rel="section"><i class="fa fa-fw fa-image"></i>相册</a>
 
   </li>
+        <li class="menu-item menu-item-书籍">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书籍</a>
+
+  </li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -297,13 +302,13 @@
       
         <p>在访问https的接口时，我们需要配置对方的证书，才能保证我们正常的访问，当两个系统配置的证书不一致时，会出现外调失败的情况，这里就记录一下查看证书详细信息的命令。</p><a id="more"></a>
 <h2 id="1-查看jks证书的命令"><a href="#1-查看jks证书的命令" class="headerlink" title="1.查看jks证书的命令"></a>1.查看jks证书的命令</h2><p>是利用JAVA自带的keytool工具，所以先要下载和配置JAVA，找到JAVA下的bin目录，bin目录下会有keytool工具，具体的命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -list -keystore root.jks</span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -<span class="built_in">list</span> -keystore root.jks</span><br></pre></td></tr></table></figure>
 <p>/jdk/bin/keytool代表的是keytool命令的路径，root.jks代表的是jks证书<br>如果jks中包含的cer证书比较多，可以结合grep命令使用<br>比如要检查jks证书是否包含某个cer证书，可以使用下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -list -keystore root.jks | grep &apos;xxx&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -<span class="keyword">list</span> -keystore root.jks | <span class="keyword">grep</span> <span class="string">'xxx'</span></span><br></pre></td></tr></table></figure>
 <p>xxx就代表你要搜索的某个证书。<br>如果证书都配置的有，也要确定一下证书的信息是否相同，比如有效期、加密方式等。</p>
-<h2 id="2-查看cer格式的证书"><a href="#2-查看cer格式的证书" class="headerlink" title="2.查看cer格式的证书"></a>2.查看cer格式的证书</h2><pre><code>在window系统中直接双击就可以打开，查看到证书信息。</code></pre><h2 id="3-cer证书导入到JAVA标准库"><a href="#3-cer证书导入到JAVA标准库" class="headerlink" title="3.cer证书导入到JAVA标准库"></a>3.cer证书导入到JAVA标准库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -import -alias tomcat -keystore /jdk/jre/lib/security/cacerts -file tomcat.cer</span><br></pre></td></tr></table></figure>
+<h2 id="2-查看cer格式的证书"><a href="#2-查看cer格式的证书" class="headerlink" title="2.查看cer格式的证书"></a>2.查看cer格式的证书</h2><pre><code>在window系统中直接双击就可以打开，查看到证书信息。</code></pre><h2 id="3-cer证书导入到JAVA标准库"><a href="#3-cer证书导入到JAVA标准库" class="headerlink" title="3.cer证书导入到JAVA标准库"></a>3.cer证书导入到JAVA标准库</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -import -<span class="keyword">alias</span> tomcat -keystore /jdk/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span> -<span class="title">file</span> <span class="title">tomcat</span>.<span class="title">cer</span></span></span><br></pre></td></tr></table></figure>
 <p>-alias tomcat是给证书起一个别名， /jdk/jre/lib/security/cacerts是JAVA标准库的地址，也可以是自己的jks文件，   -file tomcat.cer是自己的cer文件。</p>
-<h2 id="4-删除jks文件中的cer证书"><a href="#4-删除jks文件中的cer证书" class="headerlink" title="4.删除jks文件中的cer证书"></a>4.删除jks文件中的cer证书</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -delete -alias tomcat -keystore /jdk/jre/lib/security/cacerts</span><br></pre></td></tr></table></figure>
+<h2 id="4-删除jks文件中的cer证书"><a href="#4-删除jks文件中的cer证书" class="headerlink" title="4.删除jks文件中的cer证书"></a>4.删除jks文件中的cer证书</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -delete -<span class="keyword">alias</span> tomcat -keystore /jdk/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span></span></span><br></pre></td></tr></table></figure>
 <p>从JAVA的标准库中删除别名为tomcat的证书。</p>
 
     </div>
