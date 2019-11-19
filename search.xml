@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>启动和停止的脚本</title>
+    <url>/2019/11/19/linux-%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>会遇到在Linux环境下写脚本，常见的就是启动，删除的脚本，这里记录一下脚本如何编写，方便以后忘记时查看。</p><a id="more"></a>
+<h2 id="1-启动脚本"><a href="#1-启动脚本" class="headerlink" title="1.启动脚本"></a>1.启动脚本</h2><p>这里就以启动HEXO服务为例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#获取当前时间</span></span><br><span class="line">time=`date +<span class="string">"%Y-%m-%d %H:%M:%S"</span>`</span><br><span class="line"><span class="comment">#打印当前时间到日志文件中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> &gt;&gt; /opt/softinsall/hexo/logs/hexo.log</span><br><span class="line"><span class="comment">#启动HEXO服务</span></span><br><span class="line">nohup hexo s -p 80 &gt; /opt/softinsall/hexo/logs/hexo.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-停止服务脚本"><a href="#2-停止服务脚本" class="headerlink" title="2.停止服务脚本"></a>2.停止服务脚本</h2><p>这里使用停止HEXO服务为例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#获取进程ID，kill掉</span></span><br><span class="line"><span class="built_in">kill</span> -9 `ps -ef|grep hexo|grep -v grep|awk <span class="string">'&#123;print $2&#125;'</span>`</span><br></pre></td></tr></table></figure>
+<p>grep -v grep 指的是把grep的服务过滤，awk  ‘{print $2}’指的是取查询出来的第二列的值。</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>脚本</tag>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图片展示</title>
     <url>/2019/11/13/images-show/</url>
     <content><![CDATA[<p>这是一个图片展示的测试,需要按照一下的格式处理图片，其余的方法测试中，图片都没有展示，可能是设置的问题。</p><a id="more"></a>

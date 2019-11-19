@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haiyue.com/"/>
-  <updated>2019-11-13T07:55:35.716Z</updated>
+  <updated>2019-11-19T06:28:15.002Z</updated>
   <id>http://haiyue.com/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>启动和停止的脚本</title>
+    <link href="http://haiyue.com/2019/11/19/linux-%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
+    <id>http://haiyue.com/2019/11/19/linux-脚本操作/</id>
+    <published>2019-11-19T06:11:31.000Z</published>
+    <updated>2019-11-19T06:28:15.002Z</updated>
+    
+    <content type="html"><![CDATA[<p>会遇到在Linux环境下写脚本，常见的就是启动，删除的脚本，这里记录一下脚本如何编写，方便以后忘记时查看。</p><a id="more"></a><h2 id="1-启动脚本"><a href="#1-启动脚本" class="headerlink" title="1.启动脚本"></a>1.启动脚本</h2><p>这里就以启动HEXO服务为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#获取当前时间</span></span><br><span class="line">time=`date +<span class="string">"%Y-%m-%d %H:%M:%S"</span>`</span><br><span class="line"><span class="comment">#打印当前时间到日志文件中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$time</span> &gt;&gt; /opt/softinsall/hexo/logs/hexo.log</span><br><span class="line"><span class="comment">#启动HEXO服务</span></span><br><span class="line">nohup hexo s -p 80 &gt; /opt/softinsall/hexo/logs/hexo.log &amp;</span><br></pre></td></tr></table></figure><h2 id="2-停止服务脚本"><a href="#2-停止服务脚本" class="headerlink" title="2.停止服务脚本"></a>2.停止服务脚本</h2><p>这里使用停止HEXO服务为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#获取进程ID，kill掉</span></span><br><span class="line"><span class="built_in">kill</span> -9 `ps -ef|grep hexo|grep -v grep|awk <span class="string">'&#123;print $2&#125;'</span>`</span><br></pre></td></tr></table></figure><p>grep -v grep 指的是把grep的服务过滤，awk  ‘{print $2}’指的是取查询出来的第二列的值。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;会遇到在Linux环境下写脚本，常见的就是启动，删除的脚本，这里记录一下脚本如何编写，方便以后忘记时查看。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://haiyue.com/categories/linux/"/>
+    
+    
+      <category term="脚本" scheme="http://haiyue.com/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+      <category term="运维" scheme="http://haiyue.com/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
     <title>图片展示</title>
     <link href="http://haiyue.com/2019/11/13/images-show/"/>
     <id>http://haiyue.com/2019/11/13/images-show/</id>
     <published>2019-11-13T02:40:14.000Z</published>
-    <updated>2019-11-13T07:55:35.716Z</updated>
+    <updated>2019-11-19T06:13:43.503Z</updated>
     
     <content type="html"><![CDATA[<p>这是一个图片展示的测试,需要按照一下的格式处理图片，其余的方法测试中，图片都没有展示，可能是设置的问题。</p><a id="more"></a><p><img src="http://q0waqk1z9.bkt.clouddn.com/logo.jpg" alt="test"></p>]]></content>
     
@@ -46,7 +71,7 @@
     <link href="http://haiyue.com/2019/11/12/%E8%AF%81%E4%B9%A6%E5%AF%BC%E5%85%A5,%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4/"/>
     <id>http://haiyue.com/2019/11/12/证书导入,查看和删除/</id>
     <published>2019-11-12T07:59:07.000Z</published>
-    <updated>2019-11-13T01:46:49.913Z</updated>
+    <updated>2019-11-19T06:19:11.094Z</updated>
     
     <content type="html"><![CDATA[<p>在访问https的接口时，我们需要配置对方的证书，才能保证我们正常的访问，当两个系统配置的证书不一致时，会出现外调失败的情况，这里就记录一下查看证书详细信息的命令。</p><a id="more"></a><h2 id="1-查看jks证书的命令"><a href="#1-查看jks证书的命令" class="headerlink" title="1.查看jks证书的命令"></a>1.查看jks证书的命令</h2><p>是利用JAVA自带的keytool工具，所以先要下载和配置JAVA，找到JAVA下的bin目录，bin目录下会有keytool工具，具体的命令如下：</p><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -<span class="built_in">list</span> -keystore root.jks</span><br></pre></td></tr></table></figure><p>/jdk/bin/keytool代表的是keytool命令的路径，root.jks代表的是jks证书<br>如果jks中包含的cer证书比较多，可以结合grep命令使用<br>比如要检查jks证书是否包含某个cer证书，可以使用下面的命令</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -v -<span class="keyword">list</span> -keystore root.jks | <span class="keyword">grep</span> <span class="string">'xxx'</span></span><br></pre></td></tr></table></figure><p>xxx就代表你要搜索的某个证书。<br>如果证书都配置的有，也要确定一下证书的信息是否相同，比如有效期、加密方式等。</p><h2 id="2-查看cer格式的证书"><a href="#2-查看cer格式的证书" class="headerlink" title="2.查看cer格式的证书"></a>2.查看cer格式的证书</h2><pre><code>在window系统中直接双击就可以打开，查看到证书信息。</code></pre><h2 id="3-cer证书导入到JAVA标准库"><a href="#3-cer证书导入到JAVA标准库" class="headerlink" title="3.cer证书导入到JAVA标准库"></a>3.cer证书导入到JAVA标准库</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -import -<span class="keyword">alias</span> tomcat -keystore /jdk/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span> -<span class="title">file</span> <span class="title">tomcat</span>.<span class="title">cer</span></span></span><br></pre></td></tr></table></figure><p>-alias tomcat是给证书起一个别名， /jdk/jre/lib/security/cacerts是JAVA标准库的地址，也可以是自己的jks文件，   -file tomcat.cer是自己的cer文件。</p><h2 id="4-删除jks文件中的cer证书"><a href="#4-删除jks文件中的cer证书" class="headerlink" title="4.删除jks文件中的cer证书"></a>4.删除jks文件中的cer证书</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/bin/keytool -delete -<span class="keyword">alias</span> tomcat -keystore /jdk/jre/<span class="class"><span class="keyword">lib</span>/<span class="title">security</span>/<span class="title">cacerts</span></span></span><br></pre></td></tr></table></figure><p>从JAVA的标准库中删除别名为tomcat的证书。</p>]]></content>
     
