@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo配置Nginx,配置SSL证书</title>
+    <url>/2019/11/22/hexo-nginx/</url>
+    <content><![CDATA[<p>当我们想把HEXO服务采用HTTPS协议的时候，我们利用NGINX服务来配置我们的HTTPS,HTTPS相比较HTTP来说，更加的安全，可靠。</p><a id="more"></a>
+<h2 id="1-申请SSL证书"><a href="#1-申请SSL证书" class="headerlink" title="1.申请SSL证书"></a>1.申请SSL证书</h2><p>  我的服务器和域名都是在阿里云上面买的，所以就在阿里云的控制台中申请了免费的SSL证书，在申请通过的时候，下载证书时，选择Nginx，如下图所示：<br><img src="http://q0waqk1z9.bkt.clouddn.com/SSL.png" alt="SSL"><br>  证书解压目录如下所示，一个key文件和pem文件，如下图所示：<br><img src="http://q0waqk1z9.bkt.clouddn.com/SSL_NGINX.png" alt="nginx_ssl"></p>
+<h2 id="2-配置NGINX"><a href="#2-配置NGINX" class="headerlink" title="2.配置NGINX"></a>2.配置NGINX</h2><p>  NGINX的安装教程网上已经有很多的教程了，这里就直接给出NGINX的配置，如下所示：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">443</span>;            <span class="comment">#监听HTTPS端口</span></span><br><span class="line">        <span class="attribute">server_name</span> <span class="number">106.15.251.138</span>;  <span class="comment">#IP地址</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl</span>          <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl_certificate</span>        /opt/ssl/ssl.pem;  <span class="comment">#证书的绝对路径</span></span><br><span class="line">        <span class="attribute">ssl_certificate_key</span>    /opt/ssl/ssl.key;  <span class="comment">#证书的绝对路径</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl_session_cache</span>                shared:SSL:<span class="number">1m</span>;</span><br><span class="line">        <span class="attribute">ssl_session_timeout</span>              <span class="number">5m</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">ssl_ciphers</span>                      HIGH:!aNULL:!MD5;</span><br><span class="line">        <span class="attribute">ssl_prefer_server_ciphers</span>        <span class="literal">on</span>;</span><br><span class="line">        <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> /&#123;</span><br><span class="line">            <span class="attribute">proxy_pass</span>              http://106.15.251.138:4000/;        <span class="comment">#要代理的地址</span></span><br><span class="line">            <span class="attribute">proxy_redirect</span>          <span class="literal">off</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="attribute">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;</span><br><span class="line">        <span class="attribute">location</span> = /50x.html &#123;</span><br><span class="line">            <span class="attribute">root</span>   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置完成后，可以使用./nginx -t来校验配置文件是否有问题，如果出现不识别ssl_certificate的错误，可能是没有安装ssl的服务导致的，安装即可。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>SSL</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>启动和停止的脚本</title>
     <url>/2019/11/19/linux-%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>会遇到在Linux环境下写脚本，常见的就是启动，删除的脚本，这里记录一下脚本如何编写，方便以后忘记时查看。</p><a id="more"></a>
@@ -12,7 +30,7 @@
 <p>grep -v grep 指的是把grep的服务过滤，awk  ‘{print $2}’指的是取查询出来的第二列的值。</p>
 ]]></content>
       <categories>
-        <category>linux</category>
+        <category>Linux</category>
       </categories>
       <tags>
         <tag>脚本</tag>
